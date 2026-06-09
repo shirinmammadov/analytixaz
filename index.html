@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AnalytixAZ — Data Analytics & Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F6F2;
+    --bg-dark: #0E0E0C;
+    --surface: #FFFFFF;
+    --navy: #0D1B3E;
+    --accent: #1A56DB;
+    --accent-dim: #E8EFFE;
+    --text-primary: #0E0E0C;
+    --text-secondary: #5A5A54;
+    --text-muted: #9B9B93;
+    --border: #E0DED6;
+    --radius: 12px;
+    --radius-sm: 6px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 68px;
+    background: rgba(247,246,242,0.90);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--navy); letter-spacing: -0.5px;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 14px; font-weight: 500; color: var(--text-secondary);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+
+  .nav-cta {
+    background: var(--navy); color: #fff !important;
+    padding: 8px 20px; border-radius: var(--radius-sm);
+    font-size: 13px; font-weight: 500;
+    text-decoration: none; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; align-items: center;
+    padding: 100px 5% 80px;
+    background: var(--bg);
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(26,86,219,0.06) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .hero-inner { max-width: 1200px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent-dim); color: var(--accent);
+    font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 100px; margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    font-weight: 700; line-height: 1.1;
+    letter-spacing: -1.5px; color: var(--navy);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 em {
+    font-style: normal; color: var(--accent);
+    border-bottom: 3px solid var(--accent);
+  }
+
+  .hero p {
+    font-size: 17px; color: var(--text-secondary);
+    max-width: 480px; margin-bottom: 2.5rem; line-height: 1.8;
+  }
+
+  .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--navy); color: #fff;
+    padding: 14px 28px; border-radius: var(--radius-sm);
+    font-size: 15px; font-weight: 500;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--accent); }
+
+  .btn-secondary {
+    background: transparent; color: var(--text-primary);
+    padding: 14px 28px; border-radius: var(--radius-sm);
+    font-size: 15px; font-weight: 500;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    border: 1px solid var(--border); transition: border-color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--text-secondary); }
+
+  .hero-stats {
+    display: flex; flex-direction: column; gap: 1.5rem;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.75rem;
+    display: flex; align-items: center; gap: 1.25rem;
+  }
+
+  .stat-icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: var(--accent-dim);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .stat-icon svg { width: 24px; height: 24px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px; font-weight: 700; color: var(--navy); line-height: 1;
+  }
+
+  .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+  /* SECTION COMMON */
+  section { padding: 90px 5%; }
+  .section-inner { max-width: 1200px; margin: 0 auto; }
+
+  .section-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700; letter-spacing: -0.8px; color: var(--navy);
+    margin-bottom: 1rem; line-height: 1.2;
+  }
+
+  .section-sub {
+    font-size: 16px; color: var(--text-secondary);
+    max-width: 520px; line-height: 1.8;
+  }
+
+  /* SERVICES */
+  #services { background: var(--surface); }
+
+  .services-header { margin-bottom: 3.5rem; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .service-item {
+    background: var(--surface);
+    padding: 2rem 1.75rem;
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .service-item:hover { background: #FAFAF8; }
+
+  .service-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px; font-weight: 600; color: var(--text-muted);
+    letter-spacing: 0.08em; margin-bottom: 1.25rem;
+  }
+
+  .service-icon {
+    width: 44px; height: 44px;
+    background: var(--accent-dim);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem;
+  }
+
+  .service-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+
+  .service-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px; font-weight: 600; color: var(--navy);
+    margin-bottom: 0.75rem;
+  }
+
+  .service-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+
+  /* ABOUT / WHY US */
+  #about { background: var(--bg); }
+
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+
+  .about-list { list-style: none; margin-top: 2rem; }
+  .about-list li {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 1.1rem 0; border-bottom: 1px solid var(--border);
+    font-size: 15px; color: var(--text-secondary); line-height: 1.6;
+  }
+  .about-list li:last-child { border-bottom: none; }
+  .about-list li svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 2; flex-shrink: 0; margin-top: 2px; }
+
+  .about-visual {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 2.5rem;
+    color: #fff;
+  }
+
+  .about-visual-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px; font-weight: 600; margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .about-stack { display: flex; flex-direction: column; gap: 1rem; }
+
+  .stack-bar { }
+  .stack-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 13px; opacity: 0.8; }
+  .stack-track { height: 5px; background: rgba(255,255,255,0.12); border-radius: 3px; }
+  .stack-fill { height: 100%; border-radius: 3px; background: #1A56DB; }
+
+  .tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2rem; }
+  .tech-tag {
+    font-size: 12px; font-weight: 500;
+    background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.8);
+    padding: 5px 12px; border-radius: 100px; letter-spacing: 0.02em;
+  }
+
+  /* PROCESS */
+  #process { background: var(--surface); }
+
+  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
+
+  .process-step {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+  }
+
+  .step-n {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 36px; font-weight: 700; color: var(--border);
+    line-height: 1; margin-bottom: 1rem;
+  }
+
+  .step-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem;
+  }
+
+  .step-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+
+  /* CONTACT */
+  #contact { background: var(--navy); color: #fff; }
+
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+
+  .contact-inner .section-title { color: #fff; }
+  .contact-inner .section-sub { color: rgba(255,255,255,0.6); max-width: 400px; }
+
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+  .contact-link {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 15px; color: rgba(255,255,255,0.8);
+    text-decoration: none;
+  }
+  .contact-link svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 1.8; flex-shrink: 0; }
+  .contact-link:hover { color: #fff; }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 13px; color: rgba(255,255,255,0.6); }
+  .form-group input, .form-group textarea, .form-group select {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius-sm);
+    padding: 11px 14px;
+    color: #fff; font-size: 14px; font-family: 'Inter', sans-serif;
+    outline: none; transition: border-color 0.2s;
+  }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    border-color: var(--accent);
+  }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-group select option { background: var(--navy); color: #fff; }
+
+  .btn-send {
+    background: var(--accent); color: #fff;
+    border: none; border-radius: var(--radius-sm);
+    padding: 13px 28px; font-size: 15px; font-weight: 500;
+    cursor: pointer; transition: background 0.2s;
+    font-family: 'Inter', sans-serif;
+    align-self: flex-start; margin-top: 0.5rem;
+  }
+  .btn-send:hover { background: #1245B5; }
+
+  /* FOOTER */
+  footer {
+    background: #080806; color: rgba(255,255,255,0.5);
+    padding: 2.5rem 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 13px;
+  }
+
+  .footer-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px; font-weight: 700; color: rgba(255,255,255,0.85);
+    text-decoration: none;
+  }
+  .footer-logo span { color: var(--accent); }
+
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; }
+  .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-stats { flex-direction: row; flex-wrap: wrap; }
+    .stat-card { flex: 1; min-width: 200px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .contact-inner { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+
+  @media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-secondary { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Analytix<span>AZ</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact" class="nav-cta">Get in touch</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Data intelligence for Azerbaijan</div>
+      <h1>Turn data into <em>decisions</em> that move businesses forward</h1>
+      <p>AnalytixAZ delivers end-to-end analytics, financial modeling, and data infrastructure for organizations across Azerbaijan and beyond.</p>
+      <div class="hero-btns">
+        <a href="#services" class="btn-primary">
+          Explore services
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#contact" class="btn-secondary">Talk to us</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 4-8"/></svg>
+        </div>
+        <div>
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Projects delivered</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div>
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Years of expertise</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <div class="stat-num">30+</div>
+          <div class="stat-label">Clients served</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="services-header">
+      <div class="section-eyebrow">What we do</div>
+      <h2 class="section-title">Services built for real-world data challenges</h2>
+      <p class="section-sub">From raw data pipelines to boardroom-ready dashboards — we handle every layer of the analytics stack.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-item">
+        <div class="service-num">01</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="service-name">Financial Valuations &amp; Modeling</div>
+        <div class="service-desc">DCF models, scenario analysis, investment appraisals, and company valuations built for precision decision-making.</div>
+      </div>
+
+      <div class="service-item">
+        <div class="service-num">02</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div class="service-name">Data Warehouse</div>
+        <div class="service-desc">Architecture, ETL pipelines, and data lake setup to give your organization a single source of truth.</div>
+      </div>
+
+      <div class="service-item">
+        <div class="service-num">03</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <div class="service-name">Market Research &amp; Surveys</div>
+        <div class="service-desc">Quantitative and qualitative research design, data collection, and statistical analysis for market intelligence.</div>
+      </div>
+
+      <div class="service-item">
+        <div class="service-num">04</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </div>
+        <div class="service-name">Data Crawl</div>
+        <div class="service-desc">Custom web scraping pipelines to collect structured data from websites, APIs, and public sources at scale.</div>
+      </div>
+
+      <div class="service-item">
+        <div class="service-num">05</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="service-name">Analytics &amp; Visualizations</div>
+        <div class="service-desc">Power BI, Tableau, and custom dashboard development that turns complex datasets into clear, actionable insights.</div>
+      </div>
+
+      <div class="service-item">
+        <div class="service-num">06</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="service-name">Website Building</div>
+        <div class="service-desc">Professional websites and data-driven web applications designed for performance, clarity, and conversion.</div>
+      </div>
+
+      <div class="service-item">
+        <div class="service-num">07</div>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="service-name">Training</div>
+        <div class="service-desc">Hands-on data analytics, Excel, Python, and BI tool training programs for teams and individuals.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div>
+        <div class="section-eyebrow">Why AnalytixAZ</div>
+        <h2 class="section-title">Local expertise. International standards.</h2>
+        <p class="section-sub">We combine deep knowledge of Azerbaijan's business landscape with best-in-class analytical methods.</p>
+        <ul class="about-list">
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            Bilingual delivery — Azerbaijani and English reporting at the same standard
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            Sector experience across finance, government, education, and retail
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            Full-stack team — analysts, developers, and visualization specialists in-house
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            Transparent, milestone-based delivery with reproducible methodologies
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            Post-project support and knowledge transfer built into every engagement
+          </li>
+        </ul>
+      </div>
+      <div class="about-visual">
+        <div class="about-visual-title">Core technology stack</div>
+        <div class="about-stack">
+          <div class="stack-bar">
+            <div class="stack-label"><span>Python &amp; R</span><span>Advanced</span></div>
+            <div class="stack-track"><div class="stack-fill" style="width:92%"></div></div>
+          </div>
+          <div class="stack-bar">
+            <div class="stack-label"><span>SQL &amp; Databases</span><span>Advanced</span></div>
+            <div class="stack-track"><div class="stack-fill" style="width:88%"></div></div>
+          </div>
+          <div class="stack-bar">
+            <div class="stack-label"><span>Power BI / Tableau</span><span>Advanced</span></div>
+            <div class="stack-track"><div class="stack-fill" style="width:90%"></div></div>
+          </div>
+          <div class="stack-bar">
+            <div class="stack-label"><span>Financial Modeling</span><span>Expert</span></div>
+            <div class="stack-track"><div class="stack-fill" style="width:95%"></div></div>
+          </div>
+          <div class="stack-bar">
+            <div class="stack-label"><span>Web Scraping / APIs</span><span>Advanced</span></div>
+            <div class="stack-track"><div class="stack-fill" style="width:85%"></div></div>
+          </div>
+        </div>
+        <div class="tech-tags">
+          <span class="tech-tag">Excel</span>
+          <span class="tech-tag">Pandas</span>
+          <span class="tech-tag">PostgreSQL</span>
+          <span class="tech-tag">Airflow</span>
+          <span class="tech-tag">Selenium</span>
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">Azure</span>
+          <span class="tech-tag">dbt</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-inner">
+    <div class="section-eyebrow">How we work</div>
+    <h2 class="section-title">From brief to insight in four steps</h2>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-n">01</div>
+        <div class="step-title">Discovery</div>
+        <div class="step-desc">We map your data landscape, business questions, and success criteria before writing a single line of code.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-n">02</div>
+        <div class="step-title">Data preparation</div>
+        <div class="step-desc">Cleaning, structuring, and pipeline design — we make raw data reliable and ready for analysis.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-n">03</div>
+        <div class="step-title">Analysis &amp; modeling</div>
+        <div class="step-desc">Statistical analysis, machine learning, or financial modeling applied to answer your specific questions.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-n">04</div>
+        <div class="step-title">Delivery &amp; handoff</div>
+        <div class="step-desc">Interactive dashboards, reports, or live pipelines — with training so your team can run independently.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="contact-inner">
+      <div>
+        <div class="section-eyebrow" style="color:#7BA7F5">Contact</div>
+        <h2 class="section-title">Ready to work together?</h2>
+        <p class="section-sub">Tell us what you're working on and we'll get back to you within one business day.</p>
+        <div class="contact-links">
+          <a href="https://wa.me/994503329969" class="contact-link">
+            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            WhatsApp: +994 50 332 99 69
+          </a>
+          <a href="https://www.linkedin.com/company/analytixmind/" class="contact-link">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            LinkedIn: AnalytixMind
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61567015074807" class="contact-link">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Facebook: AnalytixAZ
+          </a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your name</label>
+            <input type="text" placeholder="Ali Mammadov">
+          </div>
+          <div class="form-group">
+            <label>Email address</label>
+            <input type="email" placeholder="ali@company.az">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Service of interest</label>
+          <select>
+            <option value="">Select a service...</option>
+            <option>Financial Valuations &amp; Modeling</option>
+            <option>Data Warehouse</option>
+            <option>Market Research &amp; Surveys</option>
+            <option>Data Crawl</option>
+            <option>Analytics &amp; Visualizations</option>
+            <option>Website Building</option>
+            <option>Training</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tell us about your project</label>
+          <textarea placeholder="Brief description of what you need..."></textarea>
+        </div>
+        <button class="btn-send">Send message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Analytix<span>AZ</span></a>
+  <span>© 2024 AnalytixAZ. All rights reserved.</span>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="https://analytixaz.wordpress.com">Blog</a>
+  </div>
+</footer>
+
+</body>
+</html>
